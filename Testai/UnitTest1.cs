@@ -142,6 +142,7 @@ namespace Testai
             var fileName = "C:\\Users\\jgrin\\Desktop\\NAUJAS.TXT";
             File.WriteAllText(fileName, "\"S1\"\"Bendrasis\"", Encoding.GetEncoding(1257));
             var rst = new ReadSandeliaiText();
+
             var expected = new List<Sandeliai>
             {
                 new Sandeliai()
