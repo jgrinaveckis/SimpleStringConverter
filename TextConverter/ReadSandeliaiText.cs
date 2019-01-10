@@ -26,6 +26,7 @@ namespace TextConverter
             List<Sandeliai> sandeliuSarasas = new List<Sandeliai>();
             try
             {
+
                 using (StreamReader sr = new StreamReader(fileName, Encoding.GetEncoding(1257)))
                 {
                     int eilute = 0;
