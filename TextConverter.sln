@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextConverter", "TextConverter\TextConverter.csproj", "{99E644D1-65EA-4DF8-AD90-D387042ECE18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testai", "Testai\Testai.csproj", "{00A7D6CF-C81B-41C6-B0F1-4F1706250D98}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99E644D1-65EA-4DF8-AD90-D387042ECE18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E644D1-65EA-4DF8-AD90-D387042ECE18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99E644D1-65EA-4DF8-AD90-D387042ECE18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99E644D1-65EA-4DF8-AD90-D387042ECE18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00A7D6CF-C81B-41C6-B0F1-4F1706250D98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00A7D6CF-C81B-41C6-B0F1-4F1706250D98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00A7D6CF-C81B-41C6-B0F1-4F1706250D98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00A7D6CF-C81B-41C6-B0F1-4F1706250D98}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03CE646B-2CBF-4486-8F59-A0212429A19F}
+	EndGlobalSection
+EndGlobal
