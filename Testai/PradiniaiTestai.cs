@@ -96,7 +96,7 @@ namespace Testai
         [TestMethod]
         public void SuccessfulReadingStringOfSandeliaiToAListOfSandeliai()
         {
-            //Act
+            //Arrange
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             var fileName = "C:\\Users\\jgrin\\Desktop\\NAUJAS.TXT";
             File.WriteAllText(fileName, "\"S1\"\t\"Bendrasis\"", Encoding.GetEncoding(1257));
@@ -272,6 +272,85 @@ namespace Testai
             //Act
             //var temp = sut.ReadPrekesFromText(fileName);*/
             #endregion
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ReadingKlientaiStringWithoutFileName()
+        {
+            //Arrange
+            string fileName = "";
+            var sut = new ReadKlientaiText();
+            //Act
+            var temp = sut.ReadKlientaiFromText(fileName);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ReadingKlientaiStringWithoutValidFileNameExtension()
+        {
+            //Arrange
+            string fileName = "aaaa";
+            var sut = new ReadKlientaiText();
+            //Act
+            var temp = sut.ReadKlientaiFromText(fileName);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ReadingSandeliaiStringWithoutFileName()
+        {
+            //Arrange
+            string fileName = "";
+            var sut = new ReadSandeliaiText();
+            //Act
+            var temp = sut.ReadSandeliaiFromText(fileName);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ReadingSandeliaiStringWithoutValidFileNameExtension()
+        {
+            //Arrange
+            string fileName = "aaaa";
+            var sut = new ReadSandeliaiText();
+            //Act
+            var temp = sut.ReadSandeliaiFromText(fileName);
+        }
+        [TestMethod]
+        public void ReadingEmptyPrekesStringToAListOfPrekes()
+        {
+            //Arrange
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            var fileName = "C:\\Users\\jgrin\\Desktop\\NAUJAS.TXT";
+            File.WriteAllText(fileName, "", Encoding.GetEncoding(1257));
+            var rpt = new ReadPrekesText();
+            //Act
+            var actual = rpt.ReadPrekesFromText(fileName);
+            //Assert
+            Assert.IsTrue(actual.Count == 0);
+        }
+        [TestMethod]
+        public void ReadingEmptySandeliaiStringToAListOfSandeliai()
+        {
+            //Arrange
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            var fileName = "C:\\Users\\jgrin\\Desktop\\NAUJAS.TXT";
+            File.WriteAllText(fileName, "", Encoding.GetEncoding(1257));
+            var rst = new ReadSandeliaiText();
+            //Act
+            var actual = rst.ReadSandeliaiFromText(fileName);
+            //Assert
+            Assert.IsTrue(actual.Count == 0);
+        }
+        [TestMethod]
+        public void ReadingEmptyKlientaiStringToAListOfKlientai()
+        {
+            //Arrange
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            var fileName = "C:\\Users\\jgrin\\Desktop\\NAUJAS.TXT";
+            File.WriteAllText(fileName, "", Encoding.GetEncoding(1257));
+            var rkt = new ReadKlientaiText();
+            //Act
+            var actual = rkt.ReadKlientaiFromText(fileName);
+            //Assert
+            Assert.IsTrue(actual.Count == 0);
         }
     }
 }

@@ -35,33 +35,36 @@ namespace TextConverter
                     bool isNumeric;
                     while (!sr.EndOfStream)
                     {
-                        string temp = sr.ReadLine();
                         if (eilute >= 0)
                         {
-                            string[] tempTrimmed = Array.ConvertAll(temp.Split('\t'), p => p.Trim(quotes));
-                            Prekes prekes = new Prekes
+                            string temp = sr.ReadLine();
+                            if (temp.Length != 0)
                             {
-                                Numeris = tempTrimmed[0],
-                                PrekesKodas = tempTrimmed[1],
-                                PrekesPavadinimas = tempTrimmed[2],
-                                PrekiuGrupe = tempTrimmed[3]
-                            };
-                            try
-                            {
-                                if (!(isNumeric = decimal.TryParse(tempTrimmed[4], NumberStyles.Any, new CultureInfo("en-US"), out decimal kaina)))
+                                try
                                 {
-                                    prekes.Kaina = Regex.Replace(tempTrimmed[4], "[^.0-9]", "");
+                                    string[] tempTrimmed = Array.ConvertAll(temp.Split('\t'), p => p.Trim(quotes));
+                                    Prekes prekes = new Prekes
+                                    {
+                                        Numeris = tempTrimmed[0],
+                                        PrekesKodas = tempTrimmed[1],
+                                        PrekesPavadinimas = tempTrimmed[2],
+                                        PrekiuGrupe = tempTrimmed[3]
+                                    };
+                                    if (!(isNumeric = decimal.TryParse(tempTrimmed[4], NumberStyles.Any, new CultureInfo("en-US"), out decimal kaina)))
+                                    {
+                                        prekes.Kaina = Regex.Replace(tempTrimmed[4], "[^.0-9]", "");
+                                    }
+                                    if (kaina > 0)
+                                    {
+                                        //nukerpami papildomi nuliai iki vieno skaiciaus po kableliu(jei ne nulis)
+                                        prekes.Kaina = kaina.ToString("G29", CultureInfo.InvariantCulture);
+                                        prekiuSarasas.Add(prekes);
+                                    }
                                 }
-                                if (kaina > 0)
+                                catch (IndexOutOfRangeException)
                                 {
-                                    //nukerpami papildomi nuliai iki vieno skaiciaus po kableliu(jei ne nulis)
-                                    prekes.Kaina = kaina.ToString("G29", CultureInfo.InvariantCulture);
-                                    prekiuSarasas.Add(prekes);
+                                    throw new Exception("Nuskaitymo klaida");
                                 }
-                            }
-                            catch (IndexOutOfRangeException)
-                            {
-                                throw new Exception("Nuskaitymo klaida");
                             }
                         }
                         eilute++;

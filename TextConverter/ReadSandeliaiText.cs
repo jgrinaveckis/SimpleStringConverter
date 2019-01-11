@@ -22,33 +22,35 @@ namespace TextConverter
         public List<Sandeliai> ReadSandeliaiFromText(string fileName)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            if (fileName.Length == 0) throw new ArgumentNullException();
+            if (fileName.Length == 0 || !fileName.Contains(".TXT")) throw new ArgumentException();
             List<Sandeliai> sandeliuSarasas = new List<Sandeliai>();
             try
             {
-
                 using (StreamReader sr = new StreamReader(fileName, Encoding.GetEncoding(1257)))
                 {
                     int eilute = 0;
                     char quotes = '"';
                     while (!sr.EndOfStream)
                     {
-                        string temp = sr.ReadLine();
                         if (eilute >= 0)
                         {
-                            string[] tempTrimmed = Array.ConvertAll(temp.Split('\t'), p => p.Trim(quotes));
-                            try
+                            string temp = sr.ReadLine();
+                            if(temp.Length != 0)
                             {
-                                Sandeliai sandeliai = new Sandeliai
+                                string[] tempTrimmed = Array.ConvertAll(temp.Split('\t'), p => p.Trim(quotes));
+                                try
                                 {
-                                    Kodas = tempTrimmed[0],
-                                    Pavadinimas = tempTrimmed[1]
-                                };
-                                sandeliuSarasas.Add(sandeliai);
-                            }
-                            catch (IndexOutOfRangeException)
-                            {
-                                throw new Exception("Nuskaitymo klaida");
+                                    Sandeliai sandeliai = new Sandeliai
+                                    {
+                                        Kodas = tempTrimmed[0],
+                                        Pavadinimas = tempTrimmed[1]
+                                    };
+                                    sandeliuSarasas.Add(sandeliai);
+                                }
+                                catch (IndexOutOfRangeException)
+                                {
+                                    throw new Exception("Nuskaitymo klaida");
+                                }
                             }
                         }
                         eilute++;

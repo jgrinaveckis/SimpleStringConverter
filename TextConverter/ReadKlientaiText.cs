@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.IO.Abstractions;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -36,32 +33,35 @@ namespace TextConverter
 
                     while (!sr.EndOfStream)
                     {
-                        string temp = sr.ReadLine();
                         if (eilute >= 0)
                         {
-                            string[] tempTrimmed = Array.ConvertAll(temp.Split('\t'), p => p.Trim(quotes).Replace("\"", ""));
-                            Klientai klientai = new Klientai();
-                            try
+                            string temp = sr.ReadLine();
+                            if(temp.Length != 0)
                             {
-                                if (tempTrimmed[0].Length != 0)
+                                string[] tempTrimmed = Array.ConvertAll(temp.Split('\t'), p => p.Trim(quotes).Replace("\"", ""));
+                                Klientai klientai = new Klientai();
+                                try
                                 {
-                                    if (!(isNumeric = double.TryParse(tempTrimmed[0], out double k)))
+                                    if (tempTrimmed[0].Length != 0)
                                     {
-                                        klientai.Kodas = Regex.Replace(tempTrimmed[0], "[^-0-9]", "");
+                                        if (!(isNumeric = double.TryParse(tempTrimmed[0], out double k)))
+                                        {
+                                            klientai.Kodas = Regex.Replace(tempTrimmed[0], "[^-0-9]", "");
+                                        }
+                                        else
+                                        {
+                                            klientai.Kodas = tempTrimmed[0];
+                                        }
+                                        klientai.Pavadinimas = tempTrimmed[1];
+                                        klientuSarasas.Add(klientai);
                                     }
-                                    else
-                                    {
-                                        klientai.Kodas = tempTrimmed[0];
-                                    }
-                                    klientai.Pavadinimas = tempTrimmed[1];
-                                    klientuSarasas.Add(klientai);
+                                }
+                                catch (IndexOutOfRangeException)
+                                {
+                                    throw new Exception("Nuskaitymo klaida");
                                 }
                             }
-                            catch (IndexOutOfRangeException)
-                            {
-                                throw new Exception("Nuskaitymo klaida");
-                            }
-                        }
+                        }    
                         eilute++;
                     }
                 }
